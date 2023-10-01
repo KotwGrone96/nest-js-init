@@ -1,34 +1,37 @@
 import {
 	Entity,
-	Column,
+	PrimaryGeneratedColumn,
 	CreateDateColumn,
 	UpdateDateColumn,
 	DeleteDateColumn,
-	PrimaryGeneratedColumn,
+	Column,
+	OneToMany,
 } from 'typeorm';
 
-@Entity({ name: 'people' })
-export class Person {
+import { Product } from 'src/product/product.entity';
+
+@Entity()
+export class Provider {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@Column()
+	@Column({ unique: true })
 	name: string;
 
-	@Column()
-	lastname: string;
+	@Column({ nullable: true })
+	address: string;
 
-	@Column({ unique: true })
-	dni: string;
-
-	@Column({ unique: true })
-	email: string;
+	@Column({ nullable: true })
+	secondary_address: string;
 
 	@Column({ nullable: true })
 	phone: string;
 
 	@Column({ nullable: true })
-	gender: string;
+	secondary_phone: string;
+
+	@Column({ nullable: true })
+	email: string;
 
 	@CreateDateColumn({ name: 'created_at' })
 	created_at: Date;
@@ -38,4 +41,7 @@ export class Person {
 
 	@DeleteDateColumn({ name: 'deleted_at' })
 	deleted_at: Date;
+
+	@OneToMany(() => Product, (product) => product.provider)
+	products: Product[];
 }

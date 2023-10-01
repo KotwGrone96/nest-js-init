@@ -1,14 +1,18 @@
 import {
 	Entity,
-	Column,
 	CreateDateColumn,
 	UpdateDateColumn,
 	DeleteDateColumn,
 	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	JoinColumn,
 } from 'typeorm';
 
-@Entity({ name: 'people' })
-export class Person {
+import { Provider } from 'src/provider/provider.entity';
+
+@Entity()
+export class Product {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
@@ -16,19 +20,26 @@ export class Person {
 	name: string;
 
 	@Column()
-	lastname: string;
+	private_price: string;
 
-	@Column({ unique: true })
-	dni: string;
+	@Column()
+	profit: string;
 
-	@Column({ unique: true })
-	email: string;
-
-	@Column({ nullable: true })
-	phone: string;
+	@Column()
+	public_price: string;
 
 	@Column({ nullable: true })
-	gender: string;
+	category_id: string;
+
+	@ManyToOne(() => Provider, (provider) => provider.products)
+	@JoinColumn({ name: 'provider_id' })
+	provider: Provider;
+
+	@Column()
+	stock: number;
+
+	@Column()
+	description: string;
 
 	@CreateDateColumn({ name: 'created_at' })
 	created_at: Date;

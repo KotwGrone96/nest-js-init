@@ -13,6 +13,13 @@ import { Role } from './role/role.entity';
 import { AuthModule } from './auth/auth.module';
 import { RoleGuard } from './role/role.guard';
 import { AuthGuard } from './auth/auth.guard';
+import { Store } from './store/store.entity';
+import { StoreModule } from './store/store.module';
+import { Provider } from './provider/provider.entity';
+import { Product } from './product/product.entity';
+import { Category } from './category/category.entity';
+import { ProviderModule } from './provider/provider.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
 	imports: [
@@ -26,7 +33,7 @@ import { AuthGuard } from './auth/auth.guard';
 			username: process.env.DB_USER,
 			password: process.env.DB_PASS,
 			database: process.env.DB_NAME,
-			entities: [Person, User, Role],
+			entities: [Person, User, Role, Store, Provider, Product, Category],
 			synchronize: true,
 		}),
 		TypeOrmModule.forFeature([Person, User]),
@@ -34,6 +41,9 @@ import { AuthGuard } from './auth/auth.guard';
 		UserModule,
 		RoleModule,
 		AuthModule,
+		StoreModule,
+		ProviderModule,
+		ProductModule,
 	],
 	controllers: [AppController],
 	providers: [

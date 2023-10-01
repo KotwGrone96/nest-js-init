@@ -7,28 +7,34 @@ import {
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'people' })
-export class Person {
+@Entity()
+export class Store {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@Column()
+	@Column({ unique: true })
 	name: string;
 
 	@Column()
-	lastname: string;
+	address: string;
 
-	@Column({ unique: true })
-	dni: string;
+	@Column()
+	city: string;
 
-	@Column({ unique: true })
-	email: string;
+	@Column()
+	province: string;
+
+	@Column({ nullable: true })
+	identifier: string;
+
+	@Column()
+	owner: string;
 
 	@Column({ nullable: true })
 	phone: string;
 
 	@Column({ nullable: true })
-	gender: string;
+	description: string;
 
 	@CreateDateColumn({ name: 'created_at' })
 	created_at: Date;
